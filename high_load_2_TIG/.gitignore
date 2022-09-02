@@ -1,0 +1,6 @@
+MyWebApp/obj
+MyWebApp/bin
+aspnetapp/aspnetapp/bin
+aspnetapp/aspnetapp/obj
+.DS_Store
+/aspnetapp/.vs
