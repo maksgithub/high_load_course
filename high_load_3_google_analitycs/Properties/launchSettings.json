@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "high_load_3_google_analitycs": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
