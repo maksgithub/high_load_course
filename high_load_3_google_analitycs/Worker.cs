@@ -20,7 +20,7 @@ public class Worker : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await OnGet();
-            await Task.Delay(1000, stoppingToken);
+            await Task.Delay(20000, stoppingToken);
         }
     }
 
@@ -28,14 +28,7 @@ public class Worker : BackgroundService
     {
         var httpRequestMessage = new HttpRequestMessage(
             HttpMethod.Get,
-            "https://bank.gov.ua/NBU_Exchange/exchange?json")
-        {
-            Headers =
-            {
-                { HeaderNames.Accept, "application/vnd.github.v3+json" },
-                { HeaderNames.UserAgent, "HttpRequestsSample" }
-            }
-        };
+            "https://bank.gov.ua/NBU_Exchange/exchange?json");
 
         var httpClient = _httpClientFactory.CreateClient();
         var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
@@ -45,7 +38,11 @@ public class Worker : BackgroundService
             using var contentStream =
                 await httpResponseMessage.Content.ReadAsStreamAsync();
 
-            var obg = await JsonSerializer.DeserializeAsync<object>(contentStream);
+            var exchangeItems = await JsonSerializer.DeserializeAsync<ExchangeItem[]>(contentStream);
+            foreach (var exchangeItem in exchangeItems)
+            {
+                GoogleAnalyticsApi.TrackEvent("ExchangeRate_2", exchangeItem.CurrencyCodeL, exchangeItem.Amount.ToString());
+            }
         }
     }
 }
