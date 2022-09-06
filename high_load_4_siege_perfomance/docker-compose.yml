@@ -2,7 +2,7 @@ version: "2"
 
 services:
   backend:
-    build: ./aspnetapp/
+    build: ./backend/
     image: aspnetcore_6.1
     volumes:
       - backend-storage:/app:rw
