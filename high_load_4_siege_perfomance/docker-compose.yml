@@ -4,10 +4,10 @@ services:
   backend:
     build: ./backend/
     image: aspnetcore_6.0
-    env_file:
-      - .env
+    volumes:
+      - backend-storage:/app:rw
     ports:
-      - "5000:80"
+      - "5010:5001"
 
   # influxdb:
   #   image: influxdb:2.1.1
@@ -19,3 +19,7 @@ services:
   #   restart: on-failure:10
   #   ports:
   #     - ${DOCKER_INFLUXDB_INIT_PORT}:8086
+
+volumes:
+  influxdb-storage:
+  backend-storage:
