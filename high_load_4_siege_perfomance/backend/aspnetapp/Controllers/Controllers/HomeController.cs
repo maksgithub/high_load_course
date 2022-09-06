@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Linq;
+using System.Text;
 
 namespace MvcMovie.Controllers
 {
@@ -6,7 +9,13 @@ namespace MvcMovie.Controllers
     {
         public string Index()
         {
-            return "Ok";
+            var sb = new StringBuilder();
+            foreach (DictionaryEntry e in System.Environment.GetEnvironmentVariables())
+            {
+                sb.AppendLine(e.Key + ":" + e.Value);
+            }
+
+            return sb.ToString();
         }
     }
 }
