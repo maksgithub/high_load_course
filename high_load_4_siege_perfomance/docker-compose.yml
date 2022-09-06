@@ -1,0 +1,21 @@
+version: "1"
+
+services:
+  backend:
+    build: ./backend/
+    image: aspnetcore_6.0
+    env_file:
+      - .env
+    ports:
+      - "5000:80"
+
+  # influxdb:
+  #   image: influxdb:2.1.1
+  #   volumes:
+  #     - influxdb-storage:/var/lib/influxdb2:rw
+  #   env_file:
+  #     - .env
+  #   entrypoint: ["./entrypoint.sh"]
+  #   restart: on-failure:10
+  #   ports:
+  #     - ${DOCKER_INFLUXDB_INIT_PORT}:8086

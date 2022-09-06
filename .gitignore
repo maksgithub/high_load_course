@@ -1,5 +1,3 @@
-.DS_Store
-/high_load_3_google_analitycs/bin/
-/high_load_3_google_analitycs/obj
-.suo
-.vs
+*/bin/**
+*/.vs/**
+**/obj/*
