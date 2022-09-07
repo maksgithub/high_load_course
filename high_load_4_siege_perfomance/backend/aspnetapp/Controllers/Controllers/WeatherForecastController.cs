@@ -2,6 +2,7 @@ using app.Services;
 using InfluxDB.Client.Api.Domain;
 using InfluxDB.Client.Writes;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace backend.Controllers;
 
@@ -14,12 +15,16 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
+
+    private readonly ILogger<WeatherForecastController> _logger;
     private readonly InfluxDBService _influxDBService;
     private readonly string _org = Environment.GetEnvironmentVariable("DOCKER_INFLUXDB_INIT_ORG") ?? "maxim";
     private readonly string _bucket = Environment.GetEnvironmentVariable("DOCKER_INFLUXDB_INIT_BUCKET") ?? "weather";
 
-    public WeatherForecastController(InfluxDBService influxDBService)
+    public WeatherForecastController(InfluxDBService influxDBService,
+                                     ILogger<WeatherForecastController> logger)
     {
+        _logger = logger;
         _influxDBService = influxDBService;
     }
 
@@ -29,6 +34,7 @@ public class WeatherForecastController : ControllerBase
         var weather = GetWeather();
         _influxDBService.Write(write =>
         {
+            var points = new List<PointData>();
             foreach (var item in weather)
             {
                 var point = PointData.Measurement("weather")
@@ -37,7 +43,15 @@ public class WeatherForecastController : ControllerBase
                 .Field("TemperatureC", item.TemperatureC)
                 .Timestamp(DateTime.UtcNow, WritePrecision.Ns);
 
-                write.WritePoint(point, _bucket, _org);
+                points.Add(point);
+            }
+            try
+            {
+                write.WritePoints(points, _bucket, _org);
+            }
+            catch (System.Exception e)
+            {
+                _logger.LogError("GetWeatherForecast", e);
             }
         });
         return weather;
