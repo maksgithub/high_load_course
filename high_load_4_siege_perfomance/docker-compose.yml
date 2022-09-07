@@ -1,37 +1,28 @@
 version: "2"
 
 services:
-  siege:
-    build: ./siege/
-    image: "siege"
+  backend:
+    build: ./backend/
+    image: aspnetcore_6.1
     volumes:
-      - siege-storage:/app:rw
-  #   depends_on:
-  #     - backend
-  #     - influxdb
-      
-  # backend:
-  #   build: ./backend/
-  #   image: aspnetcore_6.1
-  #   volumes:
-  #     - backend-storage:/app:rw
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "5000:80"
-  #   depends_on:
-  #     - influxdb
+      - backend-storage:/app:rw
+    env_file:
+      - .env
+    ports:
+      - "5000:80"
+    depends_on:
+      - influxdb
 
-  # influxdb:
-  #   image: influxdb:2.1.1
-  #   volumes:
-  #     - influxdb-storage:/var/lib/influxdb2:rw
-  #   env_file:
-  #     - .env
-  #   entrypoint: ["./entrypoint.sh"]
-  #   restart: on-failure:10
-  #   ports:
-  #     - ${DOCKER_INFLUXDB_INIT_PORT}:8086
+  influxdb:
+    image: influxdb:2.1.1
+    volumes:
+      - influxdb-storage:/var/lib/influxdb2:rw
+    env_file:
+      - .env
+    entrypoint: ["./entrypoint.sh"]
+    restart: on-failure:10
+    ports:
+      - ${DOCKER_INFLUXDB_INIT_PORT}:8086
 
 volumes:
   influxdb-storage:

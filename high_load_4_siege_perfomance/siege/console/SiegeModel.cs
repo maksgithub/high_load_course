@@ -1,7 +1,5 @@
 ﻿using System;
 
-namespace aspnetapp.Controllers.Controllers
-{
     public class SiegeModel
     {
         public int transactions { get; set; }
@@ -17,5 +15,3 @@ namespace aspnetapp.Controllers.Controllers
         public double longest_transaction { get; set; }
         public double shortest_transaction { get; set; }
     }
-}
-
