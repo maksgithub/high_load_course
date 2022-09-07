@@ -1,14 +1,7 @@
-FROM ubuntu:latest
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /source
 
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update \
-    && apt-get --no-install-recommends -y install \
-    siege \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists 
-
-COPY urls.txt/. .
-
-
-ENTRYPOINT ["siege"]
-CMD ["--help"]
+COPY console/. .
+# RUN dotnet restore --use-current-runtime  
+RUN dotnet build console.csproj
+ENTRYPOINT ["dotnet", "run"]
