@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  nginx:
+    build: ./nginx/
+    image: nginx_3
+    ports:
+      - "8080:81"
+    volumes:
+      - nginx-storage:/www/data:rw
+
+volumes:
+  nginx-storage:
