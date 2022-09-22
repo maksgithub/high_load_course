@@ -10,12 +10,6 @@ namespace backend.Controllers;
 [Route("[controller]")]
 public class SqlController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-
     private readonly ILogger<SqlController> _logger;
     private readonly InfluxDBService _influxDBService;
     private readonly string _org = Environment.GetEnvironmentVariable("DOCKER_INFLUXDB_INIT_ORG") ?? "maxim";
