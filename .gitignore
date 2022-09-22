@@ -3,3 +3,5 @@
 **/obj/*
 **/bin/**
 **/.vs/**
+high_load_8_my_sqlite_indexes/node/node_modules
+high_load_8_my_sqlite_indexes/node/package-lock.json

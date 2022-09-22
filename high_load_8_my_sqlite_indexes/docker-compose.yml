@@ -1,16 +1,6 @@
 version: "3"
 
 services:
-  backend:
-    build: ./backend/
-    image: aspnetcore_6.1
-    volumes:
-      - backend-storage:/app:rw
-    env_file:
-      - .env
-    ports:
-      - "5000:80"
-      
   nginx:
     build: ./mysql/
     image: mysql-docker
