@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.4.2
+    container_name: elasticsearch
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+      - xpack.security.enrollment.enabled=true
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - backend
+
+  # node:
+  #   container_name: node
+  #   build: ./node/
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - backend
+  #   depends_on:
+  #     - elasticsearch
+    # volumes:
+    #   - node-storage:/app
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:8.4.2
+    ports:
+      - 5601:5601
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  node-storage:

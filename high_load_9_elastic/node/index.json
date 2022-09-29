@@ -1,0 +1,27 @@
+{ 
+  "mappings": {
+    "properties": {
+      "text": {
+        "type": "text",
+        "analyzer" : "trigrams",
+        "search_analyzer": "trigrams"
+       }
+    }
+  },
+  "settings" : {
+    "analysis": {
+      "analyzer": {
+        "trigrams": { 
+          "tokenizer": "trigrams"
+        }
+      }, 
+      "tokenizer": {
+        "trigrams": {
+          "type": "ngram",
+          "min_gram": 2,
+          "max_gram": 2
+        }
+      }
+    }
+  }
+}
