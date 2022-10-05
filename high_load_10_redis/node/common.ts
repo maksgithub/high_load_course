@@ -1,23 +1,39 @@
 import { createClient } from "redis";
 
-export async function createRedisClient() {
-  const client = createClient({
-    url: "redis://localhost:6380",
-    password: "str0ng_passw0rd",
-  });
+const client = createClient({
+  url: "redis://localhost:6380",
+  password: "str0ng_passw0rd",
+});
 
+export async function connect() {
   console.log("Start connecting...");
   await client.connect();
   console.log("Connected successfully");
 
   client.on("error", (err) => {
-    console.log("Error " + err);
+    console.log("Error: " + err);
   });
+}
 
-  client.set("name", "Flavio");
-  client.set("age", 37);
-  const value = await client.get("name");
-  console.log({value});
+export async function sendCommand<T>(
+  cmd: string,
+  silent = false
+): Promise<T> {
+  if (!silent) {
+    console.log("\nStart executing command: ", cmd);
+  }
+  const command = cmd.split(" ");
+  const result = await client.sendCommand<T>(command);
+  if (!silent) {
+    console.log({ result }, "\n");
+  }
+  return result;
+}
 
-  return client;
+export function generateValue(len: number): string {
+  let res = "";
+  for (let i = 0; i < len; i++) {
+    res += "A";
+  }
+  return res;
 }

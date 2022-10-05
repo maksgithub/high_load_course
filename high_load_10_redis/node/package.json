@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node -r ts-node/register/transpile-only run.ts"
+    "start": "node -r ts-node/register/transpile-only run.ts",
+    "restart": "sh ../restart.sh && npm run start"
   },
   "dependencies": {
     "redis": "^4.3.1",
