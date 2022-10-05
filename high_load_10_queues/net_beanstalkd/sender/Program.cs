@@ -3,7 +3,7 @@ using Beanstalk.Core;
 
 HttpListener server = new HttpListener();
 
-server.Prefixes.Add("http://localhost:80/");
+server.Prefixes.Add("http://localhost:4545/");
 server.Start();
 var client = new BeanstalkConnection("127.0.0.1", 11300);
 

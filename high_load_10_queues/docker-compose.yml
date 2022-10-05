@@ -6,3 +6,10 @@ services:
     container_name: beanstalkd
     ports:
       - 11300:11300
+    volumes:
+      - beanstalk-data:/data
+    command: -b /data
+
+volumes:
+  beanstalk-data:
+    driver: local
