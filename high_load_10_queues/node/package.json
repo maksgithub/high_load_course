@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "node -r ts-node/register/transpile-only run.ts",
+    "restart": "sh ../restart.sh && npm run start"
+  },
+  "dependencies": {
+    "redis": "^4.3.1",
+    "ts-node": "^10.9.1"
+  }
+}
