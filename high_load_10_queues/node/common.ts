@@ -5,6 +5,8 @@ const client = createClient({
   password: "str0ng_passw0rd",
 });
 
+const multi = client.multi();
+
 export async function connect() {
   console.log("Start connecting...");
   await client.connect();
@@ -13,6 +15,19 @@ export async function connect() {
   client.on("error", (err) => {
     console.log("Error: " + err);
   });
+}
+
+let c = 0;
+
+export async function rPush() {
+  const data = {
+    data: c += 1
+  }
+  await multi.rPush('queue', JSON.stringify(data));
+}
+
+export async function lPop() {
+  return await multi.lPop('queue');
 }
 
 export async function sendCommand<T>(
@@ -28,12 +43,4 @@ export async function sendCommand<T>(
     console.log({ result }, "\n");
   }
   return result;
-}
-
-export function generateValue(len: number): string {
-  let res = "";
-  for (let i = 0; i < len; i++) {
-    res += "A";
-  }
-  return res;
 }
