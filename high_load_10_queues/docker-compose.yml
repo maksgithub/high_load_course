@@ -1,21 +1,37 @@
 version: "3"
 
 services:
-  beanstalkd_log:
-    image: schickling/beanstalkd
-    container_name: beanstalkd_log
+  redis-aof:
+    image: 'redis:latest'
     ports:
-      - 11301:11300
+      - '6380:6379'
+    build: ./redis-aof
     volumes:
-      - beanstalk-data:/data
-    command: -b /data
+      - redis-storage:/data:rw
 
-  beanstalkd:
-    image: schickling/beanstalkd
-    container_name: beanstalkd
+  redis-rdb:
+    build: ./redis
+    volumes:
+      - redis-storage:/data:rw
     ports:
-      - 11300:11300
+      - '6381:6379'
 
-volumes:
+  # beanstalkd_log:
+  #   image: schickling/beanstalkd
+  #   container_name: beanstalkd_log
+  #   ports:
+  #     - 11301:11300
+  #   volumes:
+  #     - beanstalk-data:/data
+  #   command: -b /data
+
+  # beanstalkd:
+  #   image: schickling/beanstalkd
+  #   container_name: beanstalkd
+  #   ports:
+  #     - 11300:11300
+
+volumes:  
+  redis-storage:
   beanstalk-data:
     driver: local

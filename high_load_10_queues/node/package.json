@@ -2,7 +2,7 @@
   "scripts": {
     "start:sender": "node -r ts-node/register/transpile-only runSender.ts",
     "start:receiver": "node -r ts-node/register/transpile-only runReceiver.ts",
-    "start": "npm run start:sender && npm run start:receiver"
+    "start": "npm run start:sender & npm run start:receiver"
   },
   "dependencies": {
     "http": "^0.0.1-security",
