@@ -4,10 +4,11 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>sender2._0</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Beanstalk.Core" Version="1.1.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
 </Project>

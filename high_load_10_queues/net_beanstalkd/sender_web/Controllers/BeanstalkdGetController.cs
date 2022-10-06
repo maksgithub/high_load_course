@@ -15,21 +15,11 @@ public class BeanstalkdGetController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<string> GetAsync()
+    public async System.Threading.Tasks.Task<string> GetAsync()
     {
-        try
-        {
-            Console.WriteLine("get 2");
-            await _receiver.Watch("tube");
-            var job = await _receiver.Reserve(TimeSpan.FromMinutes(5));
-            Console.WriteLine("get 3");
-            await _receiver.Delete(job.Id);
-            Console.WriteLine("get 4");
-            return $"{job.Id} => {job.Data}";
-        }
-        catch (System.Exception)
-        {
-            return "error";
-        }
+        await _receiver.Watch("tube");
+        var job = await _receiver.Reserve(System.TimeSpan.FromMinutes(5));
+        await _receiver.Delete(job.Id);
+        return $"{job.Id} => {job.Data}";
     }
 }
