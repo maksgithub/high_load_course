@@ -13,7 +13,7 @@ public class BeanstalkdController : ControllerBase
 
     public BeanstalkdController()
     {
-        _sender = new BeanstalkConnection("127.0.0.1", 11300);
+        _sender = new BeanstalkConnection("127.0.0.1", 11301);
     }
 
     int c = 0;
