@@ -4,6 +4,7 @@
     "restart": "sh ../restart.sh && npm run start"
   },
   "dependencies": {
+    "delay": "^5.0.0",
     "redis": "^4.3.1",
     "ts-node": "^10.9.1"
   }
