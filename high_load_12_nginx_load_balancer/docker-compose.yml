@@ -1,0 +1,92 @@
+version: '3.4'
+
+
+services:
+  client-uk:
+    build: ./nginx/
+    ports:
+     - "81:80"
+    networks:
+      nginx-network:
+        ipv4_address: 103.105.48.0
+    depends_on:
+      - nginx
+
+  client-us:
+    build: ./nginx/
+    ports:
+     - "82:80"
+    networks:
+      nginx-network:
+        ipv4_address: 100.43.128.0
+    depends_on:
+      - nginx
+
+  client-ua:
+    build: ./nginx/
+    ports:
+     - "83:80"
+    networks:
+      nginx-network:
+        ipv4_address: 103.215.219.0
+    depends_on:
+      - nginx
+  
+  nginx:
+    hostname: nginx
+    build: ./nginx-balancer/
+    ports:
+      - "80:80"
+    networks:
+      nginx-network:
+    depends_on:
+      - server_uk
+      - server_us_1
+      - server_us_2
+      - server_all
+
+  server_uk:
+    build: ./node/
+    hostname: server_uk
+    networks:
+      nginx-network:
+    environment:
+      - SERVER=server_uk
+
+  server_us_1:
+    build: ./node/
+    hostname: server_us_1
+    networks:
+      nginx-network:
+    environment:
+      - SERVER=server_us_1
+
+  server_us_2:
+    build: ./node/
+    hostname: server_us_2
+    networks:
+      nginx-network:
+    environment:
+      - SERVER=server_us_2
+
+  server_all:
+    build: ./node/
+    hostname: server_all
+    networks:
+      nginx-network:
+    environment:
+      - SERVER=server_all
+
+  server_backup:
+    build: ./node/
+    hostname: server_backup
+    networks:
+      nginx-network:
+    environment:
+      - SERVER=server_backup
+
+networks:
+  nginx-network:
+    ipam:
+       config:
+         - subnet: 100.0.0.0/5

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "node -r ts-node/register/transpile-only run.ts"
+  },
+  "dependencies": {
+    "http": "^0.0.1-security",
+    "ts-node": "^10.9.1"
+  }
+}

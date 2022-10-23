@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  bind:
+    image: 'sameersbn/bind:9.16.1-20200524'
+    ports:
+      - 10000:10000
+    environment:
+      - WEBMIN_INIT_SSL_ENABLED=false
+    # command: -publish 53:53 -publish 53:53/udp -publish 10000:10000/tcp -volume /srv/docker/bind:/data
+
+  # beanstalkd_log:
+  #   image: schickling/beanstalkd
+  #   container_name: beanstalkd_log
+  #   ports:
+  #     - 11301:11300
+  #   volumes:
+  #     - beanstalk-data:/data
+  #   command: -b /data
+
+  # beanstalkd:
+  #   image: schickling/beanstalkd
+  #   container_name: beanstalkd
+  #   ports:
+  #     - 11300:11300
+
+# volumes:  
+#   redis-storage:
+#   beanstalk-data:
+#     driver: local
