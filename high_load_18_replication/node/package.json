@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "node reader.js & node writer.js"
+  },
+  "dependencies": {
+    "delay": "^5.0.0",
+    "mysql2": "^2.3.3"
+  }
+}
