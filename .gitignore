@@ -8,3 +8,5 @@ high_load_8_my_sqlite_indexes/node/package-lock.json
 /node_modules/**
 **/node_modules
 high_load_9_elastic/node/package-lock.json
+high_load_19_sharding/.DS_Store
+.DS_Store

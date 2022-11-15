@@ -1,0 +1,132 @@
+version: '3.3'
+services:
+  deps:
+    image: 'node:latest'
+    volumes:
+      - './package.json:/package.json:cached'
+      - './yarn.lock:/yarn.lock:cached'
+      - 'node_modules:/node_modules:delegated'
+    working_dir: '/'
+    command: 'yarn install'
+
+  server:
+    image: 'node:latest'
+    depends_on:
+      - deps
+      - db_normal
+      - db_primary
+    environment:
+      POSTGRES_USER: &user user
+      POSTGRES_PASSWORD: &pass pass
+      POSTGRES_DB: &dbname scaling
+    ports:
+      - 5555:5555
+    restart: 'always'
+    volumes:
+      - 'node_modules:/app/node_modules:delegated'
+      - './src:/app/src:cached'
+      - './package.json:/app/package.json:cached'
+    working_dir: '/app'
+    command: 'yarn run server'
+
+  db_normal:
+    image: 'postgres:11'
+    environment:
+      POSTGRES_USER: *user
+      POSTGRES_PASSWORD: *pass
+      POSTGRES_DB: *dbname
+    ports:
+      - 5432
+    restart: 'always'
+    volumes:
+      - 'db_normal:/var/lib/postgresql/data:delegated'
+      - './db_normal/db_primary.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_primary: &db
+    image: 'postgres:11'
+    depends_on:
+      - db_part0
+      - db_part1
+      - db_part2
+      - db_part3
+      - db_part4
+      - db_part5
+      - db_part6
+      - db_part7
+      - db_part8
+      - db_part9
+    environment:
+      POSTGRES_USER: *user
+      POSTGRES_PASSWORD: *pass
+      POSTGRES_DB: *dbname
+    ports:
+      - 5432
+    restart: 'always'
+    volumes:
+      - 'db_primary:/var/lib/postgresql/data:delegated'
+      - './db/db_primary.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part0:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part1:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part2:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part3:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part4:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part5:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part6:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part7:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part8:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+  db_part9:
+    <<: *db
+    depends_on: []
+    volumes:
+      - './db/db_part.sql:/docker-entrypoint-initdb.d/setup.sql:cached'
+
+volumes:
+  db_normal:
+  db_primary:
+  node_modules:
