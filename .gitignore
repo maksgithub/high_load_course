@@ -11,3 +11,5 @@ high_load_9_elastic/node/package-lock.json
 high_load_19_sharding/.DS_Store
 .DS_Store
 high_load_20_my_sql_backup/data
+high_load_20_my_sql_backup/full_backup
+
