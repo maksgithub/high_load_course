@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  mysql:
+    build: ./mysql/
+    image: mysql-docker
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  my-datavolume:
