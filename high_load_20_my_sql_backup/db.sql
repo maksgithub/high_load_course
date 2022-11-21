@@ -12,16 +12,14 @@ DELIMITER //
 CREATE PROCEDURE insertRowsTostudent_data()   
 BEGIN
 DECLARE i INT DEFAULT 1; 
-WHILE (i <= 4) DO
-    INSERT INTO users (name, age) VALUES ('user', RAND()*(100-1)+1);
-    -- INSERT INTO student_data ( enroll_id,term,specialization) VALUES (i,"term1", "Computers");
+WHILE (i <= 1000) DO
+    INSERT INTO users (name, age) VALUES ('user', i);
+    
     SET i = i+1;
 END WHILE;
 END;
-//  
-DELIMITER ;
 
 CALL insertRowsTostudent_data();
 
-INSERT INTO users (name, age) VALUES ('user', RAND()*(100-1)+1);
-SELECT * from users;
+-- INSERT INTO users (name, age) VALUES ('user', RAND()*(100-1)+1);
+SELECT count(*) from users;
