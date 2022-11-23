@@ -1,20 +1,22 @@
 version: "3"
 
 services:
-  percona:
-    container_name: percona
-    image: percona
+  # percona:
+  #   container_name: percona
+  #   image: percona
+  #   environment:
+  #    - MYSQL_ROOT_PASSWORD=my-secret-pw
+  #   ports:
+  #    - "3306:3306"
+  
+  mysql_db:
+    image: mysql:latest
     environment:
      - MYSQL_ROOT_PASSWORD=my-secret-pw
+    container_name: "mysql_db"
+    restart: "no"
     ports:
-     - "3306:3306"
-
-# mysql:
-#   build: ./mysql/
-#   image: mysql-docker
-#   environment:
-#     - MYSQL_ROOT_PASSWORD=root
-#   volumes:
-#     - ./data:/var/lib/mysql
-#   ports:
-#     - "3306:3306"
+      - 5525:3306
+    volumes:
+      - ./conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./var/lib/mysql/:/var/lib/mysql/

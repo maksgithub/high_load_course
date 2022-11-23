@@ -1,0 +1,9 @@
+[mysqld]
+
+skip-host-cache
+skip-name-resolve
+
+server-id = 1
+log_bin = 1
+expire_logs_days = 10
+datadir=/var/lib/mysql/
