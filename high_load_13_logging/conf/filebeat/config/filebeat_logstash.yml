@@ -1,0 +1,17 @@
+## Filebeat configuration
+## https://github.com/elastic/beats/blob/master/deploy/docker/filebeat.docker.yml
+#
+
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+processors:
+  - add_cloud_metadata: ~
+
+output.logstash:
+  hosts: ["graylog:5044"]
+
+http.enabled: true
+http.host: 0.0.0.0

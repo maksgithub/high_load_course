@@ -1,0 +1,1 @@
+docker exec -i mysql-slow-logs mysql -u root -proot < ./conf/mysql/prepare.sql

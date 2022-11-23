@@ -1,0 +1,141 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7.22
+    container_name: mysql-slow-logs
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3316:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      SERVICE_NAME: mysql
+    volumes:
+      - ./conf/mysql/custom.cnf:/etc/mysql/conf.d/custom.cnf:ro
+      - ./conf/mysql/test_db:/usr/sql/test_db
+      - mysql_logs:/var/log/mysql/
+    networks:
+      - logger
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.1
+    volumes:
+      - ./conf/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,z
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: admin
+      discovery.type: single-node
+    networks:
+      - logger
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.10.1
+    volumes:
+      - ./conf/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,z
+      - ./conf/logstash/pipeline:/usr/share/logstash/pipeline:ro,z
+    ports:
+      - "5044:5044"
+      - "5000:5000/tcp"
+      - "5000:5000/udp"
+      - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - logger
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.1
+    volumes:
+      - ./conf/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,z
+    ports:
+      - "5601:5601"
+    networks:
+      - logger
+    depends_on:
+      - elasticsearch
+
+  filebeat_logstash:
+    build:
+      context: conf/filebeat/
+    user: root
+    command:
+      - -e
+      - --strict.perms=false
+    volumes:
+      - type: bind
+        source: ./conf/filebeat/config/filebeat_logstash.yml
+        target: /usr/share/filebeat/filebeat.yml
+        read_only: true
+      - ./conf/filebeat/config/mysql.yml:/usr/share/filebeat/modules.d/mysql.yml
+      - mysql_logs:/var/log/mysql/
+    networks:
+      - logger
+    depends_on:
+      - logstash
+
+  filebeat:
+    build: conf/filebeat/
+    user: root
+    command:
+      - -e
+      - --strict.perms=false
+    volumes:
+      - type: bind
+        source: ./conf/filebeat/config/filebeat.yml
+        target: /usr/share/filebeat/filebeat.yml
+        read_only: true
+      - ./conf/filebeat/config/mysql.yml:/usr/share/filebeat/modules.d/mysql.yml
+      - mysql_logs:/var/log/mysql/
+    networks:
+      - logger
+    depends_on:
+      - elasticsearch
+
+  mongo:
+    image: "mongo:4.1"
+    restart: always
+    networks:
+      - logger
+
+  graylog:
+    image: graylog/graylog:4.0
+    restart: always
+    environment:
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://127.0.0.1:9201/
+      - GRAYLOG_HTTP_ENABLE_CORS=true
+      - GRAYLOG_ELASTICSEARCH_VERSION=7
+      - GRAYLOG_ELASTICSEARCH_HOSTS=http://elastic:admin@elasticsearch:9200
+    links:
+      - mongo:mongo
+      - elasticsearch:elasticsearch
+    depends_on:
+      - mongo
+      - elasticsearch
+    ports:
+      # HTTP
+      - 9201:9000
+      # Syslog TCP
+      - 1514:1514
+      # Syslog UDP
+      - 1514:1514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp
+    networks:
+      - logger
+
+
+networks:
+  logger:
+    driver: bridge
+
+volumes:
+  mysql_logs:
+    driver: local
