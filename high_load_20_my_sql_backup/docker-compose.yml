@@ -2,6 +2,7 @@ version: "3"
 
 services:
   percona:
+    container_name: percona
     image: percona
     environment:
      - MYSQL_ROOT_PASSWORD=my-secret-pw

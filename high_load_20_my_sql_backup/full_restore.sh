@@ -1,4 +1,4 @@
-CONTAINER=4a36a0f1decac7ef1c958ae41bc652969356586a25e49d2adbd032aa3ba642a3
+CONTAINER=percona
 
 docker exec -i $CONTAINER mysql -u root --password=my-secret-pw < ./sql/prepare_db.sql
 

@@ -15,7 +15,7 @@ DELIMITER //
 CREATE PROCEDURE insertRowsTostudent_data()   
 BEGIN
 DECLARE i INT DEFAULT 1; 
-WHILE (i <= 100000) DO
+WHILE (i <= 10000) DO
     INSERT INTO users (name, age) VALUES ('user', i);
     SET i = i+1;
 END WHILE;
