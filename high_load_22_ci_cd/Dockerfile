@@ -1,5 +1,5 @@
 #Base Image node:12.18.4-alpine
-FROM node:12.18.4-alpine
+FROM node:latest
 
 
 #Set working directory to /app
@@ -15,12 +15,11 @@ COPY package.json ./
 
 
 RUN npm install express --save
-RUN npm install mysql --save
 
 #Copy the app
 COPY . ./
 
-EXPOSE 3000
+EXPOSE 8080
 
 #Start the app
 CMD ["node", "index.js"]
