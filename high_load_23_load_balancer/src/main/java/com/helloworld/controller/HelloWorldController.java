@@ -16,6 +16,6 @@ public class HelloWorldController
     @RequestMapping("/")
     public String hello() 
     {
-        return String.format("<h1> Server id: %s </h1>", id.toString());
+        return String.format("<h1> Server id: %s </h1>", Long.toString(id));
     }
 }
