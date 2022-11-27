@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - 'master'
+      - 'load-balancer'
 
 env:
   applicationfolder: high_load_22_ci_cd
@@ -35,7 +35,7 @@ jobs:
           compose-file: "./high_load_22_ci_cd/docker-compose.yml"
 
       - name: Upload Artifact to s3
-        working-directory: ${{ env.applicationfolder }}/target
+        working-directory: ${{ env.applicationfolder }}
         run: aws s3 cp *.war s3://${{ env.S3BUCKET }}/
         
   deploy:
