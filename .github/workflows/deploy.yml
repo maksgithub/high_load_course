@@ -1,7 +1,9 @@
 name: Build and Deploy
 
 on:
-  workflow_dispatch: {}
+  push:
+    branches:
+      - 'master'
 
 env:
   applicationfolder: high_load_22_ci_cd
@@ -33,10 +35,9 @@ jobs:
       - name: chmod
         run: chmod -R +x ./.github
 
-      - name: Build and Package Maven
-        id: package
-        working-directory: ${{ env.applicationfolder }}
-        run: $GITHUB_WORKSPACE/.github/scripts/build.sh
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./high_load_22_ci_cd/docker-compose.yml"
 
       - name: Upload Artifact to s3
         working-directory: ${{ env.applicationfolder }}/target
