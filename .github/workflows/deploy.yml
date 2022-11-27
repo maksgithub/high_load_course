@@ -4,7 +4,7 @@ on:
   workflow_dispatch: {}
 
 env:
-  applicationfolder: spring-boot-hello-world-example
+  applicationfolder: high_load_22_ci_cd
   AWS_REGION: us-east-1
   S3BUCKET: codedeploystack-webappdeploymentbucket-a6vphvquug7d
 
