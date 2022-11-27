@@ -8,7 +8,7 @@ public class HelloWorldController
 {
     int id = 0;
 
-    public Main() {
+    public HelloWorldController() {
         RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
         id = randomDataGenerator.nextInt(0, 100);
     }
