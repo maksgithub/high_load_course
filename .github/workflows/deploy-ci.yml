@@ -1,5 +1,10 @@
 name: Build and Deploy
 
+on:
+  push:
+    branches:
+      - 'master'
+
 env:
   applicationfolder: high_load_23_load_balancer
   AWS_REGION: us-east-1
