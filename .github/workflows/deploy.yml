@@ -6,7 +6,7 @@ on:
       - 'master'
 
 env:
-  applicationfolder: spring-boot-hello-world-example
+  applicationfolder: high_load_23_load_balancer
   AWS_REGION: us-east-1
   S3BUCKET: codedeploystack-webappdeploymentbucket-a6vphvquug7d
 

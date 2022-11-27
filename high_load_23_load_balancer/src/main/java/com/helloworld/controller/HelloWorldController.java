@@ -1,16 +1,16 @@
 package com.helloworld.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.apache.commons.math3.random.RandomDataGenerator;
+import java.util.Date;
 
 @RestController
 public class HelloWorldController 
 {
-    int id = 0;
+    long id = 0;
 
     public HelloWorldController() {
-        RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
-        id = randomDataGenerator.nextInt(0, 100);
+        Date date = new Date();
+        id = date.getTime();
     }
 
     @RequestMapping("/")
