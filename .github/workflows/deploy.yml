@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: ci_cd
 
 env:
   applicationfolder: high_load_23_load_balancer
