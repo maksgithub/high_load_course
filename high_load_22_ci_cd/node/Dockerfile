@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1
 FROM node:latest as base
 
 WORKDIR /code
@@ -12,6 +11,7 @@ COPY . .
 RUN npm run test
 
 FROM base as prod
+ENV SERVER_PORT=8080
 RUN npm ci --production
 COPY . .
 CMD [ "node", "index.js" ]
