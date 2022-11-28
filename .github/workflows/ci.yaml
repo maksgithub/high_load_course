@@ -25,7 +25,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./high_load_22_ci_cd/node/Dockerfile
+          context: ./high_load_22_ci_cd/node/
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/clockbox:latest
