@@ -16,7 +16,7 @@ jobs:
           ECR_REPOSITORY: lesson-086
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
-          cd ./high_load_22_ci_cd/node/
+          cd high_load_22_ci_cd/node/
           docker build -t node-docker --target test .
 
   build:
