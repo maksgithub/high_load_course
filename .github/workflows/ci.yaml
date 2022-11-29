@@ -38,24 +38,24 @@ jobs:
       - name: Print container name
         run: echo ${{ env.CONTAINER_NAME }}
       
-      # -
-      #   name: Login to Docker Hub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      # -
-      #   name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
-      # -
-      #   name: Build and push
-      #   env:
-      #     IMAGE: high_load_22_ci_cd/node
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: "${{ github.workspace }}/high_load_22_ci_cd/node"
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Build and push
+        env:
+          IMAGE: high_load_22_ci_cd/node
+        uses: docker/build-push-action@v3
+        with:
+          context: "${{ github.workspace }}/high_load_22_ci_cd/node"
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
 
         
   unit:
@@ -65,7 +65,6 @@ jobs:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
       CONTAINER_NAME: ${{ needs.build.outputs.container_name }}
     container: maksymtatseko/node_hello:${{ needs.set-tag.outputs.tag }}
-      # image: maksymtatseko/node_hello:v0.1.27
 
     steps:
       - name: Print container name
@@ -76,30 +75,3 @@ jobs:
           cd /code
           npm i
           npm run test
-
-  # container-test-job:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ${{ needs.build.outputs.container_name }}
-  #     # image: maksymtatseko/node_hello:v0.1.15
-  #     env:
-  #       NODE_ENV: development
-  #     ports:
-  #       - 80
-  #     volumes:
-  #       - my_docker_volume:/volume_mount
-  #     options: --cpus 1
-  #   steps:
-  #     - name: Check for dockerenv file
-  #       run: ls
-
-  #     - name: node -v
-  #       run: node -v
-
-  #     - name: npm i
-  #       run: |
-  #         cd /code
-  #         npm i
-
-
-
