@@ -41,8 +41,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: .
-          file: ./high_load_22_ci_cd/docker-compose.yml
+          context: ./high_load_22_ci_cd/
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:latest
 
