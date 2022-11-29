@@ -68,7 +68,9 @@ jobs:
         run: node -v
 
       - name: npm i
-        run: npm i
+        run: |
+          cd /code
+          npm i
         
   # unit:
   #   runs-on: ubuntu-latest
