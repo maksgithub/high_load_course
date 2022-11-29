@@ -23,6 +23,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    needs: set-tag
     steps:
       -
         name: Checkout
@@ -43,6 +44,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:$IMAGE_TAG
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:latest
 
 
