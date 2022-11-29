@@ -28,8 +28,8 @@ jobs:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
       CONTAINER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ needs.set-tag.outputs.tag }}
     outputs:
-      # container_name: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
-      container_name: maksymtatseko/node_hello:v0.1.27
+      container_name: ${{ env.CONTAINER_NAME }}
+      # container_name: maksymtatseko/node_hello:v0.1.27
     steps:
       -
         name: Checkout
@@ -63,13 +63,14 @@ jobs:
     needs: [set-tag, build]
     env:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
+      CONTAINER_NAME: ${{ needs.build.outputs.container_name }}
     container: 
-      image: ${{ needs.build.outputs.container_name }}
+      image: ${{ env.CONTAINER_NAME }}
       # image: maksymtatseko/node_hello:v0.1.27
 
     steps:
       - name: Print container name
-        run: echo ${{ needs.build.outputs.container_name }}
+        run: echo ${{ env.CONTAINER_NAME }}
 
       - name: Install dependencies
         run: |
