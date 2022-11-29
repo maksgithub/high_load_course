@@ -63,6 +63,9 @@ jobs:
     steps:
       - name: Check for dockerenv file
         run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+
+      - name: node -v
+        run: node -v
         
   # unit:
   #   runs-on: ubuntu-latest
