@@ -26,7 +26,7 @@ jobs:
     needs: set-tag
     env:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
-      CONTAINER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
+      CONTAINER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ needs.set-tag.outputs.tag }}
     outputs:
       # container_name: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
       container_name: maksymtatseko/node_hello:v0.1.27
