@@ -9,6 +9,8 @@ jobs:
   set-tag:
     name: Create tag
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.increment-git-tag.outputs.git-tag }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -28,7 +30,7 @@ jobs:
 
       - name: Build docker image
         env:
-          IMAGE_TAG: ${{ needs.set-tag.steps.increment-git-tag.outputs.git-tag }}
+          IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
         run: |
           echo IMAGE_TAG = $IMAGE_TAG
 
