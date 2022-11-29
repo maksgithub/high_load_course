@@ -57,8 +57,8 @@ jobs:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
 
     steps:
-      - name: Install dependencies
-        run: npm i
+      # - name: Install dependencies
+      #   run: npm i
       
       - name: Run my service test
         run: npm run test
