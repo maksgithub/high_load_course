@@ -7,8 +7,11 @@ on:
 
 jobs:
   set-tag:
-    - name: Automatic Tagging of Releases
-      id: increment-git-tag
-      working-directory: ./high_load_22_ci_cd
-      run: |
-        bash ./build/git_update.sh -v patch
+      name: Automatic Tagging of Releases
+      runs-on: ubuntu-latest
+      steps:
+        name: Increment tag
+        id: increment-git-tag
+        working-directory: ./high_load_22_ci_cd
+        run: |
+          bash ./build/git_update.sh -v patch
