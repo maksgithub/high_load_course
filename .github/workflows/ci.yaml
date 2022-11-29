@@ -41,15 +41,15 @@ jobs:
       -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Build and push
-        env:
-          IMAGE: high_load_22_ci_cd/node
-        uses: docker/build-push-action@v3
-        with:
-          context: "${{ github.workspace }}/high_load_22_ci_cd/node"
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
+      # -
+      #   name: Build and push
+      #   env:
+      #     IMAGE: high_load_22_ci_cd/node
+      #   uses: docker/build-push-action@v3
+      #   with:
+      #     context: "${{ github.workspace }}/high_load_22_ci_cd/node"
+      #     push: true
+      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
 
         
   unit:
@@ -58,7 +58,8 @@ jobs:
     env:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
     container: 
-      image: ${{ needs.build.outputs.container_name }}
+      # image: ${{ needs.build.outputs.container_name }}
+      image: maksymtatseko/node_hello:v0.1.27
 
     steps:
       - name: Install dependencies
