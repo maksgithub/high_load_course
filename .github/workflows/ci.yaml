@@ -9,98 +9,12 @@ jobs:
   set-tag:
     name: Create tag
     runs-on: ubuntu-latest
-    outputs:
-      tag: ${{ steps.increment-git-tag.outputs.git-tag }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Increment tag
-        id: increment-git-tag
-        working-directory: ./high_load_22_ci_cd
+      - name: Set the value
+        id: step_one
         run: |
-          bash ./build/git_update.sh -v patch
-
-  build:
-    runs-on: ubuntu-latest
-    needs: set-tag
-    env:
-      IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
-      CONTAINER_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ needs.set-tag.outputs.tag }}
-    outputs:
-      container_name: ${{ env.CONTAINER_NAME }}
-      # container_name: maksymtatseko/node_hello:v0.1.27
-    steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Print container name
-        run: echo ${{ env.CONTAINER_NAME }}
-      
-      # -
-      #   name: Login to Docker Hub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKER_HUB_USERNAME }}
-      #     password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      # -
-      #   name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v2
-      # -
-      #   name: Build and push
-      #   env:
-      #     IMAGE: high_load_22_ci_cd/node
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: "${{ github.workspace }}/high_load_22_ci_cd/node"
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
-
-        
-  unit:
-    runs-on: ubuntu-latest
-    needs: [set-tag, build]
-    env:
-      IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
-      CONTAINER_NAME: ${{ needs.build.outputs.container_name }}
-    # container: 
-    #   image: ${{ env.CONTAINER_NAME }}
-      # image: maksymtatseko/node_hello:v0.1.27
-
-    steps:
-      - name: Print container name
-        run: echo ${{ env.CONTAINER_NAME }}
-
-      - name: Install dependencies
+          echo "action_state=yellow" >> $GITHUB_ENV
+      - name: Use the value
+        id: step_two
         run: |
-          cd /code
-          npm i
-          npm run test
-
-  # container-test-job:
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ${{ needs.build.outputs.container_name }}
-  #     # image: maksymtatseko/node_hello:v0.1.15
-  #     env:
-  #       NODE_ENV: development
-  #     ports:
-  #       - 80
-  #     volumes:
-  #       - my_docker_volume:/volume_mount
-  #     options: --cpus 1
-  #   steps:
-  #     - name: Check for dockerenv file
-  #       run: ls
-
-  #     - name: node -v
-  #       run: node -v
-
-  #     - name: npm i
-  #       run: |
-  #         cd /code
-  #         npm i
-
-
-
+          echo "${{ env.action_state }}" # This will output 'yellow'
