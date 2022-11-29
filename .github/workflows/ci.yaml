@@ -56,10 +56,9 @@ jobs:
           images: maksymtatseko/node_hello
       
       - name: Build and push Docker image
-        working-directory: ./high_load_22_ci_cd
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
+          context: ./high_load_22_ci_cd
           push: true
           tags: ${{ $IMAGE_TAG }}
           labels: ${{ steps.meta.outputs.labels }}
