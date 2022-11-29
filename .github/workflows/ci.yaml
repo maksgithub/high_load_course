@@ -60,7 +60,7 @@ jobs:
         with:
           context: ./high_load_22_ci_cd
           push: true
-          tags: ${{ $IMAGE_TAG }}
+          tags: $IMAGE_TAG
           labels: ${{ steps.meta.outputs.labels }}
 
 
