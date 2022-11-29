@@ -43,7 +43,7 @@ jobs:
         working-directory: ./high_load_22_ci_cd
         with:
           context: .
-          file: ./Dockerfile
+          file: ./high_load_22_ci_cd/docker-compose.yml
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:latest
 
