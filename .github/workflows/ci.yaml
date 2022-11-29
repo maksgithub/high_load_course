@@ -51,29 +51,6 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
 
-  container-test-job:
-    runs-on: ubuntu-latest
-    container:
-      image: ${{ needs.build.outputs.container_name }}
-      # image: maksymtatseko/node_hello:v0.1.15
-      env:
-        NODE_ENV: development
-      ports:
-        - 80
-      volumes:
-        - my_docker_volume:/volume_mount
-      options: --cpus 1
-    steps:
-      - name: Check for dockerenv file
-        run: ls
-
-      - name: node -v
-        run: node -v
-
-      - name: npm i
-        run: |
-          cd /code
-          npm i
         
   unit:
     runs-on: ubuntu-latest
@@ -81,7 +58,7 @@ jobs:
     env:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
     container: 
-      image: ${{ secrets.DOCKER_HUB_USERNAME }}/node_hello:${{ env.IMAGE_TAG }}
+      image: ${{ needs.build.outputs.container_name }}
 
     steps:
       - name: Install dependencies
@@ -89,6 +66,30 @@ jobs:
           cd /code
           npm i
           npm run test
+
+  # container-test-job:
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: ${{ needs.build.outputs.container_name }}
+  #     # image: maksymtatseko/node_hello:v0.1.15
+  #     env:
+  #       NODE_ENV: development
+  #     ports:
+  #       - 80
+  #     volumes:
+  #       - my_docker_volume:/volume_mount
+  #     options: --cpus 1
+  #   steps:
+  #     - name: Check for dockerenv file
+  #       run: ls
+
+  #     - name: node -v
+  #       run: node -v
+
+  #     - name: npm i
+  #       run: |
+  #         cd /code
+  #         npm i
 
 
 
