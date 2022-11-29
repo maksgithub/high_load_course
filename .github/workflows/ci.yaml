@@ -62,10 +62,13 @@ jobs:
       options: --cpus 1
     steps:
       - name: Check for dockerenv file
-        run: (ls /.dockerenv && echo Found dockerenv) || (echo No dockerenv)
+        run: ls
 
       - name: node -v
         run: node -v
+
+      - name: npm i
+        run: npm i
         
   # unit:
   #   runs-on: ubuntu-latest
