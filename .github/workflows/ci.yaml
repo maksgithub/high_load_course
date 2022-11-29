@@ -40,7 +40,6 @@ jobs:
       -
         name: Build and push
         uses: docker/build-push-action@v3
-        working-directory: ./high_load_22_ci_cd
         with:
           context: .
           file: ./high_load_22_ci_cd/docker-compose.yml
