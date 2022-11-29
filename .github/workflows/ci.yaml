@@ -14,7 +14,13 @@ jobs:
         id: step_one
         run: |
           echo "action_state=yellow" >> $GITHUB_ENV
+
+  set-tag-2:
+    name: Create tag
+    runs-on: ubuntu-latest
+    steps:
       - name: Use the value
         id: step_two
         run: |
           echo "${{ env.action_state }}" # This will output 'yellow'
+  
