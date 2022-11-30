@@ -15,12 +15,20 @@ jobs:
       CONTAINER_NAME: maksymtatseko/node_hello:v0.1.35
 
     steps:
-      - name: Print container name
-        run: echo ${{ env.CONTAINER_NAME }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
 
-      - name: Install dependencies
-        run: |
-          docker pull ${{ env.CONTAINER_NAME }}
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Install dependencies
+      run: |
+        docker pull ${{ env.CONTAINER_NAME }}
 
 
 
