@@ -32,6 +32,7 @@ jobs:
         ECR_REPOSITORY: node_hello
       run: |
         docker pull ${{ env.CONTAINER_NAME }}
+        docker tag ${{ env.CONTAINER_NAME }} $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
         docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
 
 
