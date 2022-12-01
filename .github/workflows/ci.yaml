@@ -23,6 +23,9 @@ jobs:
       CONTAINER_NAME: maksymtatseko/node_hello:v0.1.35
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -47,7 +50,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition:   task-definition.json
+        task-definition: task-definition.json
         container-name: ${{ env.CONTAINER_NAME_2 }}
         image: $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
 
