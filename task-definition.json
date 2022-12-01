@@ -46,30 +46,24 @@
         "dockerLabels": null,
         "systemControls": null,
         "privileged": null,
-        "name": "demo-deploy"
+        "name": "demo-deploy-2"
       }
     ],
     "placementConstraints": [],
     "memory": "500",
-    "taskRoleArn": "arn:aws:iam::262756833780:role/demo-deploy-role",
+    "taskRoleArn": null,
     "compatibilities": [
       "EXTERNAL",
       "EC2"
     ],
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy:1",
-    "family": "demo-deploy",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy-2:2",
+    "family": "demo-deploy-2",
     "requiresAttributes": [
       {
         "targetId": null,
         "targetType": null,
         "value": null,
         "name": "com.amazonaws.ecs.capability.ecr-auth"
-      },
-      {
-        "targetId": null,
-        "targetType": null,
-        "value": null,
-        "name": "com.amazonaws.ecs.capability.task-iam-role"
       }
     ],
     "pidMode": null,
@@ -79,7 +73,7 @@
     "networkMode": null,
     "runtimePlatform": null,
     "cpu": "1024",
-    "revision": 1,
+    "revision": 2,
     "status": "ACTIVE",
     "inferenceAccelerators": null,
     "proxyConfiguration": null,
