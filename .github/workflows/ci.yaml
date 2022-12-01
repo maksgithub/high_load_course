@@ -11,7 +11,7 @@ env:
   ECS_SERVICE: demo-deploy                # set this to your Amazon ECS service name
   ECS_CLUSTER: demo-deploy                 # set this to your Amazon ECS cluster name
   # ECS_TASK_DEFINITION: "${{ github.workspace }}/task-definition.json"      # set this to the path to your Amazon ECS task definition                                           # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME_2: demo-deploy-2
+  
 
 jobs:
   ecr:
@@ -47,11 +47,14 @@ jobs:
         docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
 
     - name: Fill in the new image ID in the Amazon ECS task definition
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: node_hello
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: task-definition.json
-        container-name: ${{ env.CONTAINER_NAME_2 }}
+        container-name: demo-deploy-2
         image: $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
 
     - name: Deploy Amazon ECS task definition
