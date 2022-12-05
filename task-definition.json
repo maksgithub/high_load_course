@@ -37,7 +37,7 @@
       "memoryReservation": null,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "262756833780.dkr.ecr.us-east-1.amazonaws.com/node_hello:v0.1.35",
+      "image": "262756833780.dkr.ecr.us-east-1.amazonaws.com/node_hello",
       "startTimeout": null,
       "firelensConfiguration": null,
       "dependsOn": null,
@@ -64,7 +64,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy-3:2",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy-3:3",
   "family": "demo-deploy-3",
   "requiresAttributes": [
     {
@@ -126,7 +126,7 @@
     "cpuArchitecture": null
   },
   "cpu": "256",
-  "revision": 2,
+  "revision": 3,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
