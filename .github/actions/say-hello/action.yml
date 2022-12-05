@@ -1,0 +1,18 @@
+name: 'say-hello'
+description: 'Returns a greeting output with a greeting to the input name'
+inputs:
+  name:
+    required: true
+outputs:
+  greeting:
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: say-hello
+      shell: bash
+      env:
+        INPUT_NAME: ${{ inputs.name }}
+      run: |
+        GREETING="Hello $INPUT_NAME"
+        echo "::set-output name=greeting::$GREETING"
