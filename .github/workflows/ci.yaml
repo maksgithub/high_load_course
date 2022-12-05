@@ -82,6 +82,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [set-tag, build, unit-tests]
     uses: ./actions/deploy
+    id: deploy-stage
 
   
   integration-tests:
