@@ -9,6 +9,9 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
     - name: say-hello
       shell: bash
       env:
