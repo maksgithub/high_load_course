@@ -84,6 +84,7 @@ jobs:
     with:
       ECS_SERVICE: demo-deploy
       ECS_CLUSTER: demo-deploy
+      ECS_CONTAINER: demo-deploy
       tag: ${{ needs.set-tag.outputs.tag }}
       task: task-definition.json
     secrets:
@@ -112,6 +113,7 @@ jobs:
     with:
       ECS_SERVICE: prod-deploy
       ECS_CLUSTER: prod-deploy
+      ECS_CONTAINER: prod-deploy
       tag: ${{ needs.set-tag.outputs.tag }}
       task: task-definition-prod.json
     secrets:

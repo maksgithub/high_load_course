@@ -1,6 +1,5 @@
 name: 'Deploy'
 
-
 on:
   workflow_call:
     inputs:
@@ -14,6 +13,9 @@ on:
         required: true
         type: string
       ECS_CLUSTER:
+        required: true
+        type: string
+      ECS_CONTAINER:
         required: true
         type: string
     secrets:
@@ -61,7 +63,7 @@ jobs:
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
         task-definition: ${{ inputs.task }}
-        container-name: demo-deploy
+        container-name: ${{ inputs.ECS_CONTAINER }}
         image: ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
 
     - name: Deploy Amazon ECS task definition
