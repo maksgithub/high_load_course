@@ -80,7 +80,7 @@ jobs:
 
   deploy-stage:
     runs-on: ubuntu-latest
-    needs: [set-tag, build, unit]
+    needs: [set-tag, build, unit-tests]
     env:
       CONTAINER_NAME: maksymtatseko/demo-deploy:${{ needs.set-tag.outputs.tag }}
 
