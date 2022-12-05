@@ -3,7 +3,7 @@ name: ci
 on:
   push:
     branches:
-      - "ci"
+      - "master"
 
 env:
   ECR_REPOSITORY: demo-deploy
