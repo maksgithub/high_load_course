@@ -2,16 +2,14 @@ name: 'say-hello'
 description: 'Returns a greeting output with a greeting to the input name'
 inputs:
   name:
-    required: true
 outputs:
   greeting:
-    required: true
 runs:
   using: "composite"
   steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
+
     - name: say-hello
       shell: bash
       env:
