@@ -97,7 +97,7 @@ jobs:
       run: |
         docker pull ${{ env.CONTAINER_NAME }}
         docker tag ${{ env.CONTAINER_NAME }} $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
-        # docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
+        docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       env:
