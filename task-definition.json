@@ -64,7 +64,7 @@
     "EC2",
     "FARGATE"
   ],
-  "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy-3:1",
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:262756833780:task-definition/demo-deploy-3:2",
   "family": "demo-deploy-3",
   "requiresAttributes": [
     {
@@ -83,6 +83,12 @@
       "targetId": null,
       "targetType": null,
       "value": null,
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
       "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
     },
     {
@@ -90,6 +96,12 @@
       "targetType": null,
       "value": null,
       "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "targetId": null,
+      "targetType": null,
+      "value": null,
+      "name": "ecs.capability.execution-role-ecr-pull"
     },
     {
       "targetId": null,
@@ -114,7 +126,7 @@
     "cpuArchitecture": null
   },
   "cpu": "256",
-  "revision": 1,
+  "revision": 2,
   "status": "ACTIVE",
   "inferenceAccelerators": null,
   "proxyConfiguration": null,
