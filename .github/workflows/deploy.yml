@@ -4,10 +4,16 @@ name: 'Deploy'
 on:
   workflow_call:
     inputs:
+      task:
+        required: true
+        type: string
       tag:
         required: true
         type: string
       ECS_SERVICE:
+        required: true
+        type: string
+      ECS_CLUSTER:
         required: true
         type: string
     secrets:
@@ -18,7 +24,6 @@ on:
 
 env:
   ECR_REPOSITORY: demo-deploy
-  ECS_CLUSTER: demo-deploy
 
 jobs:
   deploy:
@@ -55,7 +60,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task-definition.json
+        task-definition: task
         container-name: demo-deploy
         image: ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
 
@@ -64,5 +69,5 @@ jobs:
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ inputs.ECS_SERVICE }}
-        cluster: ${{ env.ECS_CLUSTER }}
+        cluster: ${{ inputs.ECS_CLUSTER }}
         wait-for-service-stability: true

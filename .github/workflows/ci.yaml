@@ -83,7 +83,9 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       ECS_SERVICE: demo-deploy
+      ECS_CLUSTER: demo-deploy
       tag: ${{ needs.set-tag.outputs.tag }}
+      task: task-definition.json
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -109,7 +111,9 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       ECS_SERVICE: prod-deploy
+      ECS_CLUSTER: prod-deploy
       tag: ${{ needs.set-tag.outputs.tag }}
+      task: task-definition-prod.json
     secrets:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
