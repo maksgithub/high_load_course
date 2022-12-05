@@ -72,7 +72,7 @@ jobs:
     container: maksymtatseko/demo-deploy:${{ needs.set-tag.outputs.tag }}
 
     steps:
-      - name: Install dependencies
+      - name: Run unit tests
         run: |
           cd /code
           npm i
