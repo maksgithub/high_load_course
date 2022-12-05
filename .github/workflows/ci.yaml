@@ -7,7 +7,7 @@ on:
 
 env:
   AWS_REGION: us-east-1                  # set this to  your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: node_hello          # set this to your Amazon ECR repository name
+  ECR_REPOSITORY: demo-deploy          # set this to your Amazon ECR repository name
   ECS_SERVICE: demo-deploy                # set this to your Amazon ECS service name
   ECS_CLUSTER: demo-deploy                 # set this to your Amazon ECS cluster name
   # ECS_TASK_DEFINITION: "${{ github.workspace }}/task-definition.json"      # set this to the path to your Amazon ECS task definition                                           # file, e.g. .aws/task-definition.json
@@ -40,7 +40,7 @@ jobs:
     - name: Push to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: node_hello
+        ECR_REPOSITORY: demo-deploy
       run: |
         docker pull ${{ env.CONTAINER_NAME }}
         docker tag ${{ env.CONTAINER_NAME }} $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.35
@@ -49,7 +49,7 @@ jobs:
     - name: Fill in the new image ID in the Amazon ECS task definition
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: node_hello
+        ECR_REPOSITORY: demo-deploy
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
