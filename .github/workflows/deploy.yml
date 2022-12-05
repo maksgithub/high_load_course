@@ -1,13 +1,24 @@
 name: 'Hello World'
 description: 'Greet someone'
-# inputs:
-#   who-to-greet:  # id of input
-#     description: 'Who to greet'
-#     required: true
-#     default: 'World'
 
-runs:
-    using: "composite"
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: false
+        type: string
+    secrets:
+      token:
+        required: false
+  workflow_dispatch:
+    inputs:
+      username:
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
     env:
       CONTAINER_NAME: maksymtatseko/demo-deploy:${{ needs.set-tag.outputs.tag }}
 
