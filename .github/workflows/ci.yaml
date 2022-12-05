@@ -69,7 +69,7 @@ jobs:
     env:
       IMAGE_TAG: ${{ needs.set-tag.outputs.tag }}
       CONTAINER_NAME: ${{ needs.build.outputs.container_name }}
-    container: maksymtatseko/node_hello:${{ needs.set-tag.outputs.tag }}
+    container: maksymtatseko/demo-deploy:${{ needs.set-tag.outputs.tag }}
 
     steps:
       - name: Print container name
