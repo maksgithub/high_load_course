@@ -79,7 +79,6 @@ jobs:
           npm run test
 
   deploy-stage:
-    id: deploy-stage
     needs: [set-tag, build, unit-tests]
     uses: ./.github/workflows/deploy.yml
 
