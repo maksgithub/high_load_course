@@ -1,9 +1,9 @@
 name: 'say-hello'
 description: 'Returns a greeting output with a greeting to the input name'
 inputs:
-  name:
+  - name
 outputs:
-  greeting:
+  - greeting
 runs:
   using: "composite"
   steps:
