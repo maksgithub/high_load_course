@@ -15,6 +15,11 @@ RUN npm ci
 COPY . .
 RUN npm run test:integration
 
+FROM base as postprod
+RUN npm ci
+COPY . .
+RUN npm run test:prod
+
 FROM base as prod
 ENV SERVER_PORT=8080
 RUN npm ci --production
