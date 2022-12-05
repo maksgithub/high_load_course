@@ -8,11 +8,11 @@ on:
         required: true
       AWS_SECRET_ACCESS_KEY:
         required: true
-  # workflow_dispatch:
-  #   inputs:
-  #     username:
-  #       required: false
-  #       type: string
+
+env:
+  ECR_REPOSITORY: demo-deploy
+  ECS_SERVICE: demo-deploy
+  ECS_CLUSTER: demo-deploy
 
 jobs:
   deploy:
