@@ -7,6 +7,9 @@ on:
       tag:
         required: true
         type: string
+      ECS_SERVICE:
+        required: true
+        type: string
     secrets:
       AWS_ACCESS_KEY_ID:
         required: true
@@ -15,7 +18,6 @@ on:
 
 env:
   ECR_REPOSITORY: demo-deploy
-  ECS_SERVICE: demo-deploy
   ECS_CLUSTER: demo-deploy
 
 jobs:
@@ -61,6 +63,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: ${{ env.ECS_SERVICE }}
+        service: ${{ inputs.ECS_SERVICE }}
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
