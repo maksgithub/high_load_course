@@ -1,5 +1,5 @@
-name: 'Hello World'
-description: 'Greet someone'
+name: 'Deploy'
+
 
 on:
   workflow_call:
