@@ -15,6 +15,7 @@ env:
 
 jobs:
   set-tag:
+    if: false
     name: Create tag
     runs-on: ubuntu-latest
     outputs:
@@ -30,6 +31,7 @@ jobs:
           bash ./build/git_update.sh -v patch
 
   build:
+    if: false
     runs-on: ubuntu-latest
     needs: set-tag
     env:
@@ -92,10 +94,11 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: demo-deploy
+        # docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
       run: |
         docker pull ${{ env.CONTAINER_NAME }}
-        docker tag ${{ env.CONTAINER_NAME }} $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
-        docker image push $ECR_REGISTRY/$ECR_REPOSITORY:v0.1.37
+        docker tag ${{ env.CONTAINER_NAME }} 262756833780.dkr.ecr.us-east-1.amazonaws.com/demo-deploy:v0.1.37
+        docker image push 262756833780.dkr.ecr.us-east-1.amazonaws.com/demo-deploy:v0.1.37
 
     - name: Fill in the new image ID in the Amazon ECS task definition
       env:
