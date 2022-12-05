@@ -60,7 +60,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: task
+        task-definition: ${{ inputs.task }}
         container-name: demo-deploy
         image: ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:latest
 
