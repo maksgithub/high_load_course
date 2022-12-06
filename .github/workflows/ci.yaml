@@ -5,11 +5,6 @@ on:
     branches:
       - "master"
 
-env:
-  ECR_REPOSITORY: demo-deploy
-  ECS_SERVICE: demo-deploy
-  ECS_CLUSTER: demo-deploy
-
 jobs:
   set-tag:
     if: true
